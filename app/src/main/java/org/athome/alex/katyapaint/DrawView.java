@@ -26,7 +26,7 @@ class DrawView extends View implements View.OnTouchListener {
     Canvas canvas;
     Bitmap bitmap;
     Rect dest;
-
+    boolean erase = false;
 
     public DrawView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -76,5 +76,17 @@ class DrawView extends View implements View.OnTouchListener {
     @Override
     protected void onDraw(Canvas canvas) {
         if (bitmap != null) canvas.drawBitmap(bitmap, null, dest, paint);
+    }
+
+    public void setColor(int color){
+        erase = false;
+        paint.setColor(color);
+        paint.setStrokeWidth(3);
+    }
+
+    public void eraserOn() {
+        erase = true;
+        paint.setColor(Color.WHITE);
+        paint.setStrokeWidth(30);
     }
 }
