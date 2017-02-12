@@ -3,4 +3,5 @@
     <string name="dlgSelectColor">ВЫбери цвет</string>
     <string name="eraser">резинка</string>
     <string name="instruments">Инструменты</string>
+    <string name="doPaint">Рисовать</string>
 </resources>

@@ -14,6 +14,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 public class MainActivity extends AppCompatActivity implements ColorPickerDialog.OnColorChangedListener {
 
@@ -62,6 +64,22 @@ public class MainActivity extends AppCompatActivity implements ColorPickerDialog
                 activateColorPicker(0);
             }
         });
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.btnEraser:
+                        drawView.eraserOn();
+                        break;
+                    case R.id.btnPencil:
+                        drawView.eraserOff(color[0]);
+                        break;
+                }
+            }
+        });
+        RadioButton rb = (RadioButton) findViewById(R.id.btnPencil);
+        rb.setChecked(true);
     }
 
     @Override
@@ -76,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements ColorPickerDialog
         PreferenceManager.getDefaultSharedPreferences(this).edit().putInt(
                 COLOR_PREFERENCE_KEY, color).apply();
         drawView.setColor(color);
+        RadioButton rb =(RadioButton) findViewById(R.id.btnPencil);
+        rb.setChecked(true);
         changeFGColor();
     }
 
@@ -86,16 +106,11 @@ public class MainActivity extends AppCompatActivity implements ColorPickerDialog
         new ColorPickerDialog(MainActivity.this, MainActivity.this, color, index).show();
     }
 
-    public void eraserOn(View view) {
-        Log.d(LOG_TAG, "eraserOn");
-        drawView.eraserOn();
-    }
-
     private void changeFGColor() {
         Log.d(LOG_TAG, "ChangeFGColor: " + Integer.toHexString(color[0]));
         Canvas preparedCanvas = surfaceView1.getHolder().lockCanvas();
         preparedCanvas.drawColor(color[0]);
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.streetlighter);
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.streetlighter2);
         if (bm == null) {
             Log.d(LOG_TAG, "Bitmap is null");
         } else {

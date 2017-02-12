@@ -34,7 +34,7 @@ class DrawView extends View implements View.OnTouchListener {
         paint = new Paint();
         paint.setStrokeWidth(3);
         paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(Color.BLUE);
+        paint.setColor(Color.BLACK);
         path = new Path();
         bitmap = null;
         canvas = null;
@@ -88,5 +88,11 @@ class DrawView extends View implements View.OnTouchListener {
         erase = true;
         paint.setColor(Color.WHITE);
         paint.setStrokeWidth(30);
+    }
+
+    public void eraserOff(int color) {
+        erase = false;
+        paint.setColor(color);
+        paint.setStrokeWidth(3);
     }
 }
